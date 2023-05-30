@@ -217,7 +217,7 @@ const search =HandleSearchBtn(research,searchName)
             {search?.map((row) => {
               return (
                 <>
-          <tr className="hometr" key={row._id} onClick={()=>navigate(`facultyResearch/${row.id}`)}>
+          <tr className="hometr" key={row._id} onClick={()=>navigate(`facultyResearch/${row?.Faculty?.id}/${row.id}`)}>
                   <td>{row.Faculty?.User?.name}</td>
                   <td>{row.Faculty?.designation}</td>
                   <td>{row.Faculty?.department}</td>
