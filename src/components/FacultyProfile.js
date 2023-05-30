@@ -1,26 +1,70 @@
-import React from "react";
+import React,{useReducer,useEffect} from "react";
 import "./DashboardComponents/FacultyProfile.css";
 import MainDashboard from "./DashboardComponents/MainDashboard";
 import { useLocation, useParams } from "react-router-dom";
 import NavbarDash from "./DashboardComponents/NavbarDash";
-import AddResearchForm from "./DashboardComponents/AddResearchForm";
-import AllResearchList from "./AllResearchList";
+// import AddResearchForm from "./AddResearchForm";
+// import AllResearchList from "./AllResearchList";
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_BEGIN":
+      return { ...state, loading: true };
+    case "FETCH_SUCCESS":
+      return { ...state, loading: false, data: action.payload };
+    case "FETCH_FAIL":
+      return { ...state, loading: false, error: action.payload };
+  }
+};
 
-const FacultyProfile = ({isResearch}) => {
-  const location = useLocation()
-  const {id}=useParams()
+const FacultyProfile = () => {
+  const location = useLocation();
+  const { id } = useParams();
+  const [{ loading, error, data }, dispatch] = useReducer(reducer, {
+    loading: true,
+    error: "",
+    data: {},
+  });
+
+  useEffect(() => {
+    const fetchFaculty = async (facultyId) => {
+      dispatch({ type: "FETCH_BEGIN" });
+      try {
+        const res = await fetch(
+          `http://localhost:8080/faculty/getFaculty/${facultyId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+          }
+        );
+        const json = await res.json();
+        console.log(json);
+        if (json.msg === "success") {
+          dispatch({ type: "FETCH_SUCCESS", payload: json.data });
+        } else if (json.msg === "failure") {
+          dispatch({ type: "FETCH_FAIL", payload: json.error });
+        }
+      } catch (error) {
+        console.log(error);
+        dispatch({ type: "FETCH_FAIL", payload: error.msg });
+      }
+    };
+    fetchFaculty(id);
+  }, []);
   console.log(id);
-  const handleChange = (e) => {
-    console.log("input");
-  };
   return (
-    <div className="main-content">
-        <NavbarDash />
-        {location.pathname==="/facultyDashboard"?
-        <MainDashboard btnData={"Edit Profile"} routeTo={"/facultyDashboard"} />:
-        location.pathname==="/addResearch"?<AddResearchForm btnData={"Back to Researches"} routeTo={"/facultyResearches"} />:<AllResearchList btnData={"Add Research"} routeTo={"/addResearch"}/>}
-    </div>
+    <>
+      {loading ? (
+        <>Loading...</>
+      ) : (
+        <div className="main-content">
+          <NavbarDash />
+          <MainDashboard data={data} />
+        </div>
+      )}
+    </>
     // <div className="main-content">
     //   <nav
     //     className="navbar navbar-top navbar-expand-md navbar-dark"
@@ -109,13 +153,13 @@ const FacultyProfile = ({isResearch}) => {
     //             </div>
     //           </div>
     //         </form>
-            
+
     //       </div>
     //     </nav>
     //     {/* header */}
-        
+
     //     {/* <!-- Page content --> */}
-        
+
     //   </div>
     //   <footer className="footer">
     //     <div className="row align-items-center justify-content-xl-between">
@@ -127,10 +171,6 @@ const FacultyProfile = ({isResearch}) => {
     //     </div>
     //   </footer>
     //   </>
-
-
-
-    
   );
 };
 

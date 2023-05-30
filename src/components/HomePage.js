@@ -35,8 +35,10 @@ const HomePage = () => {
     const json = await res.json();
     if(json.msg==="success"){
       setFaculties(json.data);
+      console.log(json.data);
       setData(json.data);
       setTotalrows(json.data.length)
+      setLoading(false)
     }
     else{
       setError(json.error)
@@ -215,13 +217,13 @@ const search =HandleSearchBtn(research,searchName)
             {search?.map((row) => {
               return (
                 <>
-          <tr className="hometr" key={row._id} onClick={()=>navigate(`/faculty/research/${row._id}`)}>
-                  <td>{row.username}</td>
-                  <td>{row.designation}</td>
-                  <td>{row.department}</td>
+          <tr className="hometr" key={row._id} onClick={()=>navigate(`facultyResearch/${row.id}`)}>
+                  <td>{row.Faculty?.User?.name}</td>
+                  <td>{row.Faculty?.designation}</td>
+                  <td>{row.Faculty?.department}</td>
                   <td>{row.researchType}</td>
                   <td>{row.researchTitle}</td>
-                  <td>{row.year}</td>
+                  <td>{row.publishedYear}</td>
                 </tr>
                 </>
               );

@@ -1,9 +1,13 @@
 import React from "react";
 
-const CardProfile = ({name, designation, age,department, cityAddress}) => {
+const CardProfile = ({user,faculty}) => {
     const handleChange=()=>{
         console.log("hi");
     }
+    const capitalizeFirst = str => {
+      if(!str) return;
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    };
   return (
     <div className="card card-profile shadow mt-12">
       <div className="row justify-content-center">
@@ -11,7 +15,7 @@ const CardProfile = ({name, designation, age,department, cityAddress}) => {
           <div className="card-profile-image mt--3">
             <a href="#">
               <img
-                src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg"
+                src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/35af6a41332353.57a1ce913e889.jpg"
                 className="rounded-circle"
               />
             </a>
@@ -33,27 +37,44 @@ const CardProfile = ({name, designation, age,department, cityAddress}) => {
           <h3>
 
             {/* todo name and age from api */}
-            Jessica Jones<span className="font-weight-light">, 27</span>
+            {capitalizeFirst(user?.name)}<span className="font-weight-light">, ({faculty?.id})</span>
           </h3>
           <div className="h5 font-weight-300">
 
             {/* todo addreess from api */}
-            <i className="ni location_pin mr-2"></i>Bucharest, Romania
+            <i className="ni location_pin mr-2">{user?.email}</i>
           </div>
           <div className="h5 mt-4">
 
             {/* todo desgination from api */}
-            <i className="ni business_briefcase-24 mr-2"></i>Solution Manager -
-            Creative Tim Officer
+            <i className="ni business_briefcase-24 mr-2"></i>{faculty?.designation} -
+            Department of {faculty?.department}
           </div>
           <div>
 
             {/* todo deaprtment form api */}
-            <i className="ni education_hat mr-2"></i>University of Computer
-            Science
+            <i className="ni education_hat mr-2"></i>
+            +91 {user?.phoneNo}
           </div>
           <hr className="my-4" />
-          <a href="">Show more</a>
+          {faculty?.wardenOfHostel?<div>
+            
+            {/* todo deaprtment form api */}
+            <i className="ni education_hat mr-2"></i>
+            Warden of {faculty.wardenOfHostel}
+          </div>:<></>}
+          {faculty?.hodOfDepartment?<div>
+            
+            {/* todo deaprtment form api */}
+            <i className="ni education_hat mr-2"></i>
+            Head of Department - {faculty.hodOfDepartment}
+          </div>:<></>}
+          {faculty?.deanOfCollege?<div>
+            
+            {/* todo deaprtment form api */}
+            <i className="ni education_hat mr-2"></i>
+            Dean of College - {faculty.deanOfCollege}
+          </div>:<></>}
         </div>
       </div>
     </div>

@@ -526,7 +526,7 @@ a>code {
 }
 
 .form-control:focus {
-  color: #b8dfe1;
+  color: black;
   border-color: rgba(50, 151, 211, .25);
   outline: 0;
   background-color: #fff;
@@ -1141,6 +1141,8 @@ button.bg-white:focus {
 }
 
 .rounded-circle {
+  width: 200px;
+  height: 180px;
   border-radius: 50% !important;
 }
 
@@ -1703,6 +1705,7 @@ a.text-white:focus {
 
 .form-control {
   font-size: .875rem;
+  color:black;
 }
 
 .form-control:focus:-ms-input-placeholder {

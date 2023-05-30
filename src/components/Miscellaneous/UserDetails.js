@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
+const UserDetails = ({inputDisabled,handleInputDisabled,handleChange,faculty,user}) => {
     return (
         
             <div className="card bg-secondary shadow">
@@ -35,7 +35,7 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                             className="form-control-label"
                                             htmlFor="input-username"
                                         >
-                                            Username
+                                            Name
                                         </label>
                                         <input
                                             disabled={inputDisabled}
@@ -44,7 +44,7 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                             id="input-username"
                                             className="form-control form-control-alternative"
                                             placeholder="Username"
-                                            value="lucky.jesse"
+                                            value={user?.name}
                                         />
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                             type="email"
                                             id="input-email"
                                             className="form-control form-control-alternative"
-                                            value="jesse@gmail.com"
+                                            value={user?.email}
                                             placeholder="jesse@example.com"
                                         />
                                     </div>
@@ -75,7 +75,7 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                             className="form-control-label"
                                             htmlFor="input-first-name"
                                         >
-                                            First name
+                                            Faculty Id
                                         </label>
                                         <input
                                             disabled={inputDisabled}
@@ -84,7 +84,7 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                             id="input-first-name"
                                             className="form-control form-control-alternative"
                                             placeholder="First name"
-                                            value="Lucky"
+                                            value={faculty?.id}
                                         />
                                     </div>
                                 </div>
@@ -92,18 +92,18 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                     <div className="form-group focused">
                                         <label
                                             className="form-control-label"
-                                            htmlFor="input-last-name"
+                                            htmlFor="Qualification"
                                         >
-                                            Last name
+                                            Qualification
                                         </label>
                                         <input
                                             disabled={inputDisabled}
                                             onChange={handleChange}
                                             type="text"
-                                            id="input-last-name"
+                                            id="Qualification"
                                             className="form-control form-control-alternative"
-                                            placeholder="Last name"
-                                            value="Jesse"
+                                            placeholder="Qualification"
+                                            value={faculty?.qualification}
                                         />
                                     </div>
                                 </div>
@@ -119,17 +119,17 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                     <div className="form-group focused">
                                         <label
                                             className="form-control-label"
-                                            htmlFor="input-research"
+                                            htmlFor="website-link"
                                         >
-                                            Research Intrests
+                                            Website Link
                                         </label>
                                         <input
                                             disabled={inputDisabled}
                                             onChange={handleChange}
-                                            id="input-research"
+                                            id="website-link"
                                             className="form-control form-control-alternative"
-                                            placeholder="Research Intrests"
-                                            value="Network security and Database"
+                                            placeholder="Website Link"
+                                            value={faculty?.bioWebLink}
                                             type="text"
                                         />
                                     </div>
@@ -151,7 +151,7 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                             id="input-phone"
                                             className="form-control form-control-alternative"
                                             placeholder="Phone number"
-                                            value="8738958334"
+                                            value={user?.phoneNo}
                                         />
                                     </div>
                                 </div>
@@ -170,7 +170,7 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                             id="input-designation"
                                             className="form-control form-control-alternative"
                                             placeholder="Designation"
-                                            value="Professor"
+                                            value={faculty?.designation}
                                         />
                                     </div>
                                 </div>
@@ -185,11 +185,11 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                                         <input
                                             disabled={inputDisabled}
                                             onChange={handleChange}
-                                            value="Information Technology"
+                                            placeholder="eg: Information Technology"
                                             type="text"
                                             id="input-department"
                                             className="form-control form-control-alternative"
-                                            placeholder="Department"
+                                            value={faculty?.department}
                                         />
                                     </div>
                                 </div>
@@ -197,19 +197,19 @@ const UserDetails = ({inputDisabled,handleInputDisabled,handleChange}) => {
                         </div>
                         <hr className="my-4" />
                         <h6 className="heading-small text-darkOliveGreen mb-4">
-                            About me
+                            Research Intrests
                         </h6>
                         <div className="pl-lg-4">
                             <div className="form-group focused">
-                                <label className="form-control-label">About Me</label>
+                                <label className="form-control-label">Research interest</label>
                                 <textarea
                                     disabled={inputDisabled}
                                     rows="4"
                                     className="form-control form-control-alternative"
                                     placeholder="A few words about you ..."
+                                    value={faculty?.researchInterests}
                                 >
-                                    A beautiful Dashboard for Bootstrap 4. It is Free and
-                                    Open Source.
+                                    {faculty?.researchInterests}
                                 </textarea>
                             </div>
                         </div>
