@@ -1,8 +1,9 @@
 import React from 'react'
 import "./FacultyProfile.css"
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const NavbarDash = () => {
+  const {facultyId,researchId}=useParams()
   return (
     <nav
         className="navbar navbar-expand-md navbar-dark"
@@ -12,13 +13,13 @@ const NavbarDash = () => {
           <div>
           <Link
             className="h4 mr-4 mb-0 text-darkOliveGreen text-uppercase d-none d-lg-inline-block"
-            to="/facultyDashboard"
+            to={`/facultyDashboard/${facultyId}`}
           >
             Faculty profile
           </Link>
           <Link
             className="h4 mb-0 text-uppercase d-none d-lg-inline-block"
-            to="/facultyResearches"
+            to={`/facultyResearches/${facultyId}`}
           >
             Faculty Researches
           </Link>

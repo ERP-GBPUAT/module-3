@@ -19,7 +19,7 @@ const reducer = (state, action) => {
 
 const FacultyProfile = () => {
   const location = useLocation();
-  const { id } = useParams();
+  const { facultyId } = useParams();
   const [{ loading, error, data }, dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
@@ -51,9 +51,9 @@ const FacultyProfile = () => {
         dispatch({ type: "FETCH_FAIL", payload: error.msg });
       }
     };
-    fetchFaculty(id);
+    fetchFaculty(facultyId);
   }, []);
-  console.log(id);
+  console.log(facultyId);
   return (
     <>
       {loading ? (

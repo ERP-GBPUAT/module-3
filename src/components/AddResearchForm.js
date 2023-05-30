@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ResearchForm from "./Miscellaneous/ResearchForm";
 // import HeaderDash from "../Miscellaneous/HeaderDash";
 import CardProfile from "./Miscellaneous/CardProfile";
 import NavbarDash from "./DashboardComponents/NavbarDash";
+// import { loadavg } from "os";
 
 const AddResearchForm = ({ btnData, routeTo }) => {
   const [research, setResearch] = React.useState({
@@ -17,7 +18,16 @@ const AddResearchForm = ({ btnData, routeTo }) => {
     researchLink: "",
   });
   const [inputDisabled, setInputDisabled] = React.useState(true);
+  const [data,setData] = useState({})
+  const [laoding,setLoading] = useState(false)
 
+  useEffect(() => {
+    setLoading(true);
+    setData(JSON.parse(localStorage.getItem('data')));
+    setLoading(false)
+  }, [])
+  console.log("researchData",data);
+  // const user = JSON.parse(JSON.parse(localStorage.getItem('user')))
   const handleInputDisabled = (edit) => {
     if (edit) {
       setInputDisabled(false);
@@ -40,7 +50,7 @@ const AddResearchForm = ({ btnData, routeTo }) => {
           method: "POST",
           headers: {
             "Content-type": "application/json",
-            token: localStorage.getItem("token"),
+            "token": JSON.parse(localStorage.getItem("token")),
           },
           body: JSON.stringify(research),
         }
@@ -52,13 +62,15 @@ const AddResearchForm = ({ btnData, routeTo }) => {
     }
   };
   return (
-    <>
+    <>{
+      laoding?<div>Loading...</div>:
+    
       <div className="main-content">
         <NavbarDash />
         <div className="container-fluid mt-4">
           <div className="row">
             <div className="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-              <CardProfile />
+              <CardProfile user={data.user} faculty={data.faculty} />
             </div>
             <div className="col-xl-8 order-xl-1">
               <ResearchForm
@@ -69,7 +81,7 @@ const AddResearchForm = ({ btnData, routeTo }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
       {/* <HeaderDash btnDaata={btnData} routeTo={routeTo} inputDisabled={inputDisabled} handleInputDisabled={handleInputDisabled} /> */}
     </>
   );

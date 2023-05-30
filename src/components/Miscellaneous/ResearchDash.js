@@ -43,8 +43,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="text"
                       id="input-username"
                       className="form-control form-control-alternative"
-                      placeholder="Username"
-                      value="lucky.jesse"
+                      placeholder="Research Title"
+                      value={research?.researchTitle}
                     />
                   </div>
                 </div>
@@ -62,8 +62,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="email"
                       id="input-email"
                       className="form-control form-control-alternative"
-                      value="jesse@gmail.com"
-                      placeholder="jesse@example.com"
+                      value={research?.journalISBNNo}
+                      placeholder="Journal ISBN No"
                     />
                   </div>
                 </div>
@@ -83,8 +83,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="text"
                       id="input-first-name"
                       className="form-control form-control-alternative"
-                      placeholder="First name"
-                      value="Lucky"
+                      placeholder="Research type"
+                      value={research?.researchType}
                     />
                   </div>
                 </div>
@@ -102,8 +102,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="text"
                       id="input-last-name"
                       className="form-control form-control-alternative"
-                      placeholder="Last name"
-                      value="Jesse"
+                      placeholder="Authors Name"
+                      value={research?.authorsName}
                     />
                   </div>
                 </div>
@@ -129,8 +129,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="text"
                       id="input-username"
                       className="form-control form-control-alternative"
-                      placeholder="Username"
-                      value="lucky.jesse"
+                      placeholder="Journal Name"
+                      value={research?.journalName}
                     />
                   </div>
                 </div>
@@ -148,8 +148,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="email"
                       id="input-email"
                       className="form-control form-control-alternative"
-                      value="jesse@gmail.com"
-                      placeholder="jesse@example.com"
+                      value={research?.publishedYear}
+                      placeholder="Published Year"
                     />
                   </div>
                 </div>
@@ -169,8 +169,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="text"
                       id="input-first-name"
                       className="form-control form-control-alternative"
-                      placeholder="First name"
-                      value="Lucky"
+                      placeholder="Volume No"
+                      value={research?.volNo}
                     />
                   </div>
                 </div>
@@ -188,8 +188,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                       type="text"
                       id="input-last-name"
                       className="form-control form-control-alternative"
-                      placeholder="Last name"
-                      value="Jesse"
+                      placeholder="Page No"
+                      value={research?.pageNo}
                     />
                   </div>
                 </div>
@@ -212,8 +212,8 @@ const ResearchDash = ({ research,setShowResearch }) => {
                   // onChange={handleChange}
                   id="input-research"
                   className="form-control form-control-alternative"
-                  placeholder="Research Intrests"
-                  value="Network security and Database"
+                  placeholder="Research Link"
+                  value={research?.researchLink}
                   type="text"
                 />
               </div>

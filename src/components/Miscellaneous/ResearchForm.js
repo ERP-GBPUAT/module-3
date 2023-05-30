@@ -56,13 +56,13 @@ const ResearchForm = ({ handleSubmit, handleChange, research }) => {
                     Journal ISBN No.
                   </label>
                   <input
-                    name="jorunalISBNNo"
+                    name="journalISBNNo"
                     disabled={false}
                     onChange={handleChange}
                     type="text"
                     id="input-journalNo"
                     className="form-control form-control-alternative"
-                    value={research.jorunalISBNNo}
+                    value={research.journalISBNNo}
                     placeholder="Jorunal ISBN No."
                   />
                 </div>

@@ -46,10 +46,10 @@ function App() {
               path="/"
               element={<HomePage getUserData={getUserData} />}
             ></Route>
-            <Route path="/facultyDashboard/:id" element={<FacultyProfile />} />
-            <Route path="/facultyResearch/:id" element={<ResearchDetails />} />
+            <Route path="/facultyDashboard/:facultyId" element={<FacultyProfile />} />
+            <Route path="/facultyResearch/:facultyId/:researchId" element={<ResearchDetails />} />
             <Route path="/addResearch" element={<AddResearchForm />} />
-            <Route path="/facultyResearches" element={<AllResearchList />} />
+            <Route path="/facultyResearches/:facultyId" element={<AllResearchList />} />
           </Routes>
         </div>
       </Notestate>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const ResearchList = ({ handleOpenResearch }) => {
+const ResearchList = ({ handleOpenResearch,researches }) => {
   return (
     <div className='card bg-secondary shadow'>
       <div className="card-header bg-white border-0 shadow-md">
@@ -24,29 +24,16 @@ const ResearchList = ({ handleOpenResearch }) => {
           <th className='researchth'>ISBN No.</th>
           <th className='researchth'>Research Title</th>
           <th className='researchth'>Research Type</th>
-          <th className='researchth'>Journal Name</th>
+          <th className='researchth'>Published Year</th>
         </tr>
-
-        <tr className='researchtr' onClick={() => handleOpenResearch(1)}>
-          <td className='researchtd' data-cell="ISBN No.">mrekk</td>
-          <td className='researchtd' data-cell="Research Title">24,519</td>
-          <td className='researchtd' data-cell="Research Type">98.10%</td>
-          <td className='researchtd' data-cell="Journal Name">153,569</td>
-        </tr>
-
-        <tr className='researchtr'>
-          <td className='researchtd' data-cell="ISBN No.">lifeline</td>
-          <td className='researchtd' data-cell="Research Title">21,603</td>
-          <td className='researchtd' data-cell="Research Type">98.21%</td>
-          <td className='researchtd' data-cell="Journal Name">216,329</td>
-        </tr>
-
-        <tr className='researchtr'>
-          <td className='researchtd' data-cell="ISBN No.">Rimuru</td>
-          <td className='researchtd' data-cell="Research Title">21,258</td>
-          <td className='researchtd' data-cell="Research Type">97.94%</td>
-          <td className='researchtd' data-cell="Journal Name">276,903</td>
-        </tr>
+        {researches?.map((research)=>{
+          return (<tr className='researchtr' key={research?.id} onClick={() => handleOpenResearch(research?.id)}>
+          <td className='researchtd' data-cell="ISBN No.">{research?.journalISBNNo}</td>
+          <td className='researchtd' data-cell="Research Title">{research?.researchTitle}</td>
+          <td className='researchtd' data-cell="Research Type">{research?.researchType}</td>
+          <td className='researchtd' data-cell="Published Year">{research?.publishedYear}</td>
+        </tr>)
+        })}
       </table>
     </div>
   )
