@@ -50,7 +50,7 @@ const AddResearchForm = ({ btnData, routeTo }) => {
           method: "POST",
           headers: {
             "Content-type": "application/json",
-            "token": JSON.parse(localStorage.getItem("token")),
+            "token": localStorage.getItem("token"),
           },
           body: JSON.stringify(research),
         }
