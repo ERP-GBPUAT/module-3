@@ -59,7 +59,7 @@ const AddResearchForm = ({ btnData, routeTo }) => {
       );
       const data = await res.json();
       if(data.msg==="success"){
-        navigate(`/facultyResearch/${data?.data?.Faculty?.id}/${data.data.id}`)
+        navigate(`/facultyResearch/${data?.data?.Faculty?.id}/${data?.data?.id}`)
       }
     } catch (error) {
       console.log(error);
