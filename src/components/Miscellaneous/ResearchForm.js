@@ -92,7 +92,7 @@ const ResearchForm = ({ handleSubmit, handleChange, research }) => {
                     className="form-control-label"
                     htmlFor="input-author-name"
                   >
-                    Author's Name
+                    Other Authors Name
                   </label>
                   <input
                     name="authorsName"

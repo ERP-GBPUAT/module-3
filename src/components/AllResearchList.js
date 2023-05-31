@@ -1,10 +1,12 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 // import HeaderDash from "./Miscellaneous/HeaderDash";
 import CardProfile from "./Miscellaneous/CardProfile";
 import ResearchList from "./Miscellaneous/ResearchList";
 // import ResearchDash from "./Miscellaneous/ResearchDash";
 import NavbarDash from "./DashboardComponents/NavbarDash";
 import { useNavigate, useParams } from "react-router-dom";
+import PrintComponent from "./Miscellaneous/PrintComponent";
+import { useReactToPrint } from "react-to-print";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -79,16 +81,21 @@ const AllResearchList = ({ btnData, routeTo }) => {
     fetchFaculty(facultyId);
     fetchAllResearch();
   }, []);
-
   const handleOpenResearch=(id)=>{
     navigate(`/facultyResearch/${facultyId}/${id}`)
   }
+  // const [print,setPrint] =useState(false)
+  const printRef = useRef()
+  const handlePrint=useReactToPrint({
+    content:()=>printRef.current
+  })
+
 
   return (
     <>
       {loading ? (
         <div>Loading...</div>
-      ) : (
+      ) : (<>
         <div className="main-content">
           <NavbarDash />
           <div>
@@ -99,12 +106,14 @@ const AllResearchList = ({ btnData, routeTo }) => {
                   <CardProfile user={faculty?.User} faculty={faculty} />
                 </div>
                 <div className="col-xl-8 order-xl-1">
-                  <ResearchList researches={researches} handleOpenResearch={handleOpenResearch} />
+                  <ResearchList researches={researches} handlePrint={handlePrint} handleOpenResearch={handleOpenResearch} />
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div><PrintComponent ref={printRef} username={faculty?.User?.name} researches={researches} /></div>
+        </>
       )}
     </>
   );

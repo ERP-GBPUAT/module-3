@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const ResearchList = ({ handleOpenResearch,researches }) => {
+const ResearchList = ({ handleOpenResearch,handlePrint,researches }) => {
   return (
     <div className='card bg-secondary shadow'>
       <div className="card-header bg-white border-0 shadow-md">
@@ -13,7 +13,7 @@ const ResearchList = ({ handleOpenResearch,researches }) => {
             <Link to={"/addResearch"} className="btn btn-sm btn-primary">
               Add new research
             </Link>
-            <Link className="btn btn-sm btn-primary">
+            <Link className="btn btn-sm btn-primary" onClick={handlePrint}>
               Print
             </Link>
           </div>
