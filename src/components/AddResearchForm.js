@@ -3,9 +3,11 @@ import ResearchForm from "./Miscellaneous/ResearchForm";
 // import HeaderDash from "../Miscellaneous/HeaderDash";
 import CardProfile from "./Miscellaneous/CardProfile";
 import NavbarDash from "./DashboardComponents/NavbarDash";
+import { useNavigate } from "react-router-dom";
 // import { loadavg } from "os";
 
 const AddResearchForm = ({ btnData, routeTo }) => {
+  const navigate = useNavigate()
   const [research, setResearch] = React.useState({
     researchTitle: "",
     researchType: "",
@@ -56,7 +58,9 @@ const AddResearchForm = ({ btnData, routeTo }) => {
         }
       );
       const data = await res.json();
-      console.log(data);
+      if(data.msg==="success"){
+        navigate(`/facultyResearch/${data?.data?.Faculty?.id}/${data.data.id}`)
+      }
     } catch (error) {
       console.log(error);
     }
