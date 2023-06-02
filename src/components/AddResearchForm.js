@@ -6,7 +6,7 @@ import NavbarDash from "./DashboardComponents/NavbarDash";
 import { useNavigate } from "react-router-dom";
 // import { loadavg } from "os";
 
-const AddResearchForm = ({ btnData, routeTo }) => {
+const AddResearchForm = () => {
   const navigate = useNavigate()
   const [research, setResearch] = React.useState({
     researchTitle: "",
@@ -28,7 +28,7 @@ const AddResearchForm = ({ btnData, routeTo }) => {
     setData(JSON.parse(localStorage.getItem('data')));
     setLoading(false)
   }, [])
-  console.log("researchData",data);
+  // console.log("researchData",data);
   // const user = JSON.parse(JSON.parse(localStorage.getItem('user')))
   const handleInputDisabled = (edit) => {
     if (edit) {
@@ -59,7 +59,9 @@ const AddResearchForm = ({ btnData, routeTo }) => {
       );
       const data = await res.json();
       if(data.msg==="success"){
-        navigate(`/facultyResearch/${data?.data?.Faculty?.id}/${data?.data?.id}`)
+        console.log("reserach Data",data.data);
+        console.log("faculty",data.data.FacultyId);
+        navigate(`/facultyResearch/${data?.data?.FacultyId}/${data?.data?.id}`)
       }
     } catch (error) {
       console.log(error);
