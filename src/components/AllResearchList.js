@@ -112,7 +112,7 @@ const AllResearchList = ({ btnData, routeTo }) => {
             </div>
           </div>
         </div>
-        <div><PrintComponent ref={printRef} username={faculty?.User?.name} researches={researches} /></div>
+        <div style={{display:"none"}}><PrintComponent ref={printRef} username={faculty?.User?.name} researches={researches} /></div>
         </>
       )}
     </>

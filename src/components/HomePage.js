@@ -1,31 +1,38 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import "./HomePage.css";
-// import searchIcon from "../Images/icons8-search-50.png";
 import SortIcon from "../Images/icons8-funnel-50.png";
-// import { faculties } from "./jsonData";
 import Pagination from "./PaginationComp/Pagination";
-import { Usefilter } from "../context/Notestate";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_BEGIN":
+      return { ...state, loading: true };
+    case "FETCH_SUCCESS":
+      return { ...state, loading: false, faculties: action.payload };
+    case "FETCH_FAIL":
+      return { ...state, loading: false, error: action.payload };
+  }
+};
+
 const HomePage = () => {
-  const { state } = Usefilter()
-  const [faculties,setFaculties] = useState([]);
-  const [error,setError] = useState()
+  const [{ loading, error,faculties }, dispatch] = useReducer(reducer, {
+    loading: true,
+    error: "",
+    faculties:[],
+  });
 
   const [data3,setdata3]=useState("")
   const [data, setData] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [rowperPage] = React.useState(15);
   const [resType, setResType] = useState("All");
   const [totalrows, setTotalrows] = useState();
   const [searchName, setSearchName] = useState("");
   const [currentTable, setCurrentTable] = React.useState([])
-  const { dispatch } = Usefilter()
 
   const fetchAllFaculties=async()=>{
-    setLoading(true)
+    dispatch({type:"FETCH_BEGIN"})
     const res = await fetch('http://localhost:8080/facultyResearch/getAllResearch',{
       method:"GET",
       headers:{
@@ -34,24 +41,19 @@ const HomePage = () => {
     })
     const json = await res.json();
     if(json.msg==="success"){
-      setFaculties(json.data);
+      dispatch({type:"FETCH_SUCCESS",payload:json.data})
       console.log(json.data);
-      setData(json.data);
-      setTotalrows(json.data.length)
-      setLoading(false)
     }
     else{
-      setError(json.error)
+      dispatch({type:"FETCH_FAIL",payload:json.error})
     }
   }
 const navigate=useNavigate()
   React.useEffect(() => {
     const func = () => {
-      setLoading(true)
       const indexOfLastPost = currentPage * rowperPage;
       const indexofFirstPost = indexOfLastPost - rowperPage;
       setCurrentTable(data.slice(indexofFirstPost, indexOfLastPost))
-      setLoading(false)
     }
     func();
     fetchAllFaculties()
@@ -159,7 +161,7 @@ const search =HandleSearchBtn(research,searchName)
             className={`option1 ${resType == "BkChp" ? "active" : ""}`}
             onClick={() => {
              setResType("BkChp");
-              setdata3("Bookchapter")
+              setdata3("Book chapter published")
             }}
           >
             Book Chapter
@@ -168,7 +170,7 @@ const search =HandleSearchBtn(research,searchName)
             className={`option1 ${resType == "Jou" ? "active" : ""}`}
             onClick={() => {
              setResType("Jou");
-              setdata3("Journal")
+              setdata3("Journal published")
             }}
           >
             Jounral
@@ -177,7 +179,7 @@ const search =HandleSearchBtn(research,searchName)
             className={`option1 ${resType == "Conppr" ? "active" : ""}`}
             onClick={() => {
              setResType("Conppr");
-              setdata3("conferencePaper")
+              setdata3("conferences")
             }}
           >
             Conference Paper
@@ -219,11 +221,11 @@ const search =HandleSearchBtn(research,searchName)
                 <>
           <tr className="hometr" key={row._id} onClick={()=>navigate(`facultyResearch/${row?.Faculty?.id}/${row.id}`)}>
                   <td>{row.Faculty?.User?.name}</td>
+                  <td>{row.Faculty?.id}</td>
                   <td>{row.Faculty?.designation}</td>
                   <td>{row.Faculty?.department}</td>
                   <td>{row.researchType}</td>
                   <td>{row.researchTitle}</td>
-                  <td>{row.publishedYear}</td>
                 </tr>
                 </>
               );

@@ -46,7 +46,7 @@ const NavbarDash = () => {
                 <a className="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div className="media align-items-center">
                     <span className="avatar avatar-sm rounded-circle">
-                      <img alt="Image placeholder" src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg"/>
+                      <img alt="Image placeholder" src="https://rcpsg.ac.uk/images/jch-optimize/ng/images_people_default.webp"/>
                     </span>
                     <div className="media-body ml-2 d-none d-lg-block">
                       <span className="mb-0 text-sm  font-weight-bold">Jessica Jones</span>

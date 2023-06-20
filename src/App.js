@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useReducer, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./App.module.css";
 import Navbar from "./components/NavbarMain";
-import { Route, Routes, BrowserRouter, useNavigate } from "react-router-dom";
-import Notestate from "./context/Notestate";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import FacultyProfile from "./components/FacultyProfile";
 import ResearchDetails from "./components/ResearchDetails";
@@ -37,7 +36,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Notestate>
         <div className={styles.App}>
           {/* <div ref={message} id="message"></div> */}
           <Navbar />
@@ -52,7 +50,6 @@ function App() {
             <Route path="/facultyResearches/:facultyId" element={<AllResearchList />} />
           </Routes>
         </div>
-      </Notestate>
     </BrowserRouter>
   );
 }

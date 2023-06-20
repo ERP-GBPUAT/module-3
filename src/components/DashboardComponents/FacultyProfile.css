@@ -513,7 +513,9 @@ a>code {
   background-clip: padding-box;
   box-shadow: none;
 }
-
+.form-control-select{
+  padding:.3rem .75rem !important;
+}
 @media screen and (prefers-reduced-motion: reduce) {
   .form-control {
     transition: none;

@@ -3,20 +3,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import gbpu from "../Images/gbpu.png";
 import styles from "./Navbar.module.css";
 import person from "../Images/icons8-person-64.png";
-import NoteContext from "../context/Notecontext";
 
 const NavbarMain = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loggedUser, fetchUserDetails,logout } = useContext(NoteContext);
   const [openMenu,setOpenMenu] = React.useState(false);
   const handleMenu = ()=>{
     setOpenMenu(!openMenu)
   }
   const handleProfile = () => {
-    // fetchuserdata();
-    // fetchUserDetails();
-    // console.log(loggedUser);
     const user = JSON.parse(localStorage.getItem('data'))
     if(user.faculty){
       navigate(`/facultyDashboard/${user?.faculty?.id}`);
@@ -24,7 +19,8 @@ const NavbarMain = () => {
     setOpenMenu(false)
   };
   const handleLogout=()=>{
-    logout()
+    localStorage.removeItem("data")
+    localStorage.removeItem("token")
     setOpenMenu(false)
   }
   return (
@@ -33,9 +29,9 @@ const NavbarMain = () => {
         <div className={styles.navbar}>
           <div className={styles.logo}>
             <img className={styles.navbarImg} src={gbpu} alt="GBPUAT" />
-            <div>
+            <Link to={"/"}>
               Govind Ballabh Pant University of Agriculture and Technology
-            </div>
+            </Link>
           </div>
           <div className={styles.authBtn}>
             {!localStorage.getItem("token") ? (

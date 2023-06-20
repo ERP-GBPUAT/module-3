@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Select from "react-select"
 
-const ResearchForm = ({ handleSubmit, handleChange, research }) => {
+const ResearchForm = ({ handleSubmit, handleChange, research,setResearch }) => {
+
+  const [user,setUser] = useState({})
+  const [researchType,setResearchType] = useState()
+  useEffect(()=>{
+    setUser(JSON.parse(localStorage.getItem('data')))
+  },[])
+  const handleResChange = (researchType)=>{
+    setResearchType(researchType)
+    setResearch({...research,researchType:researchType.value})
+  }
+  const types = [
+    {value:"Book",label:"Book"},
+    {value:"Books",label:"Books"},
+    {value:"Book chapter published",label:"Book chapter published"},
+    {value:"Journal published",label:"Journal published"},
+    {value:"Patents",label:"Patents"},
+    {value:"Publication in International conferences",label:"Publication in International conferences"},
+    {value:"Publication in International journals",label:"Publication in International journals"},
+    {value:"Conferences",label:"Conferences"},
+    {value:"Conferences published",label:"Conferences published"},
+  ]
   return (
     <div className="card bg-secondary shadow">
       <div className="card-header bg-white border-0">
@@ -17,7 +39,7 @@ const ResearchForm = ({ handleSubmit, handleChange, research }) => {
             >
               Add Research
             </button>
-            <Link className="btn btn-sm btn-primary" to={"/facultyResearches"}>Cancel</Link>
+            {/* <Link className="btn btn-sm btn-primary" to={`/facultyResearches/${user.faculty?.id}`}>Cancel</Link> */}
           </div>
         </div>
       </div>
@@ -74,15 +96,25 @@ const ResearchForm = ({ handleSubmit, handleChange, research }) => {
                   <label className="form-control-label" htmlFor="input-type">
                     Research Type
                   </label>
-                  <input
+                  <Select
                     name="researchType"
-                    disabled={false}
-                    onChange={handleChange}
+                    options={types}
+                    onChange={handleResChange}
                     type="text"
                     id="input-type"
-                    className="form-control form-control-alternative"
-                    placeholder="First name"
-                    value={research.researchType}
+                    styles={{
+                      control: (baseStyles, state) => ({
+                        ...baseStyles,
+                        border: "none",
+                        boxShadow:"none",
+                        padding:"0",
+                        margin:"0"
+                        
+                      }),
+                    }}
+                    className="form-control form-control-select form-control-alternative"
+                    placeholder="Research Type"
+                    value={researchType}
                   />
                 </div>
               </div>

@@ -40,7 +40,6 @@ const FacultyProfile = () => {
           }
         );
         const json = await res.json();
-        console.log(json);
         if (json.msg === "success") {
           dispatch({ type: "FETCH_SUCCESS", payload: json.data });
         } else if (json.msg === "failure") {

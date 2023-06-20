@@ -19,7 +19,6 @@ const AddResearchForm = ({ btnData, routeTo }) => {
     pageNo: "",
     researchLink: "",
   });
-  const [inputDisabled, setInputDisabled] = React.useState(true);
   const [data,setData] = useState({})
   const [laoding,setLoading] = useState(false)
 
@@ -29,14 +28,6 @@ const AddResearchForm = ({ btnData, routeTo }) => {
     setLoading(false)
   }, [])
   console.log("researchData",data);
-  // const user = JSON.parse(JSON.parse(localStorage.getItem('user')))
-  const handleInputDisabled = (edit) => {
-    if (edit) {
-      setInputDisabled(false);
-    } else {
-      setInputDisabled(true);
-    }
-  };
 
   const handleChange = (e) => {
     setResearch({ ...research, [e.target.name]: e.target.value });
@@ -57,9 +48,9 @@ const AddResearchForm = ({ btnData, routeTo }) => {
           body: JSON.stringify(research),
         }
       );
-      const data = await res.json();
-      if(data.msg==="success"){
-        navigate(`/facultyResearch/${data?.data?.Faculty?.id}/${data?.data?.id}`)
+      const json = await res.json();
+      if(json.msg==="success"){
+        navigate(`/facultyResearch/${json?.data?.FacultyId}/${json?.data?.id}`)
       }
     } catch (error) {
       console.log(error);
@@ -81,6 +72,7 @@ const AddResearchForm = ({ btnData, routeTo }) => {
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
                 research={research}
+                setResearch={setResearch}
               />
             </div>
           </div>
