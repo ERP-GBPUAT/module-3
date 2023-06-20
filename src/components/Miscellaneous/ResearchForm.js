@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const ResearchForm = ({ handleSubmit, handleChange, research }) => {
-
-  const [user,setUser] = useState({})
-  useEffect(()=>{
-    setUser(JSON.parse(localStorage.getItem('data')))
-  })
   return (
     <div className="card bg-secondary shadow">
       <div className="card-header bg-white border-0">
@@ -22,7 +17,7 @@ const ResearchForm = ({ handleSubmit, handleChange, research }) => {
             >
               Add Research
             </button>
-            {/* <Link className="btn btn-sm btn-primary" to={`/facultyResearches/${user.faculty?.id}`}>Cancel</Link> */}
+            <Link className="btn btn-sm btn-primary" to={"/facultyResearches"}>Cancel</Link>
           </div>
         </div>
       </div>

@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import "./HomePage.css";
+// import searchIcon from "../Images/icons8-search-50.png";
 import SortIcon from "../Images/icons8-funnel-50.png";
+// import { faculties } from "./jsonData";
+import Pagination from "./PaginationComp/Pagination";
+import { Usefilter } from "../context/Notestate";
+// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const { state } = Usefilter()
   const [faculties,setFaculties] = useState([]);
   const [error,setError] = useState()
 
   const [data3,setdata3]=useState("")
+  const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [rowperPage] = React.useState(15);
   const [resType, setResType] = useState("All");
+  const [totalrows, setTotalrows] = useState();
   const [searchName, setSearchName] = useState("");
+  const [currentTable, setCurrentTable] = React.useState([])
+  const { dispatch } = Usefilter()
 
   const fetchAllFaculties=async()=>{
     setLoading(true)
@@ -20,11 +32,12 @@ const HomePage = () => {
         "Content-type":"application/json"
       }
     })
-    console.log(res,"tyui")
     const json = await res.json();
     if(json.msg==="success"){
       setFaculties(json.data);
       console.log(json.data);
+      setData(json.data);
+      setTotalrows(json.data.length)
       setLoading(false)
     }
     else{
@@ -33,16 +46,31 @@ const HomePage = () => {
   }
 const navigate=useNavigate()
   React.useEffect(() => {
+    const func = () => {
+      setLoading(true)
+      const indexOfLastPost = currentPage * rowperPage;
+      const indexofFirstPost = indexOfLastPost - rowperPage;
+      setCurrentTable(data.slice(indexofFirstPost, indexOfLastPost))
+      setLoading(false)
+    }
+    func();
     fetchAllFaculties()
-  }, [])
+  }, [ totalrows])
   const handleSearch = (e) => {
     setSearchName(e.target.value);
   };
   const HandleSearchBtn =(faculties,searchName) => {
+   // setLoading(true)
     
     const x=faculties.filter((n) =>searchName.length>0? n.username.toLowerCase().includes(searchName.toLowerCase()):faculties)
+   // setTotalrows(data.length)
+  //  setLoading(false);
     return x;
   }
+  const paginate = (number) => {
+    setCurrentPage(number);
+    // console.log(number);
+  };
   const [data1, setData1] = useState([])
   const [data2,setData2]=useState([])
  
@@ -64,7 +92,8 @@ const navigate=useNavigate()
     
   }
   const branch = (products, branch) => {
-    const branchdata = products.filter((c) => branch.length > 0 ? branch.includes(c.Faculty.department) : products
+    const branchdata = products.filter((c) => branch.length > 0 ? branch.includes(c.department) : products
+
     )
     return branchdata
   }
@@ -86,6 +115,11 @@ const reasrctype=(products,rt)=>{
   }
 return researchdata
 }
+
+
+
+
+
 
 const branch1=branch(faculties,data1)
 const desigination1=designation(branch1,data2)
@@ -125,7 +159,7 @@ const search =HandleSearchBtn(research,searchName)
             className={`option1 ${resType == "BkChp" ? "active" : ""}`}
             onClick={() => {
              setResType("BkChp");
-              setdata3("Book Chapter")
+              setdata3("Bookchapter")
             }}
           >
             Book Chapter
@@ -205,14 +239,14 @@ const search =HandleSearchBtn(research,searchName)
             <div className="filterTypes">
               <div className="filterTypeHead">Departments</div>
               <ul className="filterList">
-                <li><input type="checkbox" name="Information technology" onChange={(e) => send(e)} /> Information technology</li>
-                <li><input type="checkbox" name="Mechanical engineering" onChange={(e) => send(e)} /> Mechanical engineering</li>
-                <li><input type="checkbox" name="Civil engineering" onChange={(e) => send(e)} /> Civil engineering</li>
-                <li><input type="checkbox" name="Electrical engineering" onChange={(e) => send(e)} />Electrical engineering</li>
-                <li><input type="checkbox" name="Agriculture engineering" onChange={(e) => send(e)} /> Agriculture engineering</li>
-                <li><input type="checkbox" name="Computer engineering" onChange={(e) => send(e)} /> Computer engineering</li>
-                <li><input type="checkbox" name="Electronics engineering" onChange={(e) => send(e)} /> Electronics engineering</li>
-                <li><input type="checkbox" name="Production engineering" onChange={(e) => send(e)} /> Industrial engineering</li>
+                <li><input type="checkbox" name="IT" onChange={(e) => send(e)} /> Information technology</li>
+                <li><input type="checkbox" name="ME" onChange={(e) => send(e)} /> Mechanical engineering</li>
+                <li><input type="checkbox" name="CE" onChange={(e) => send(e)} /> Civil engineering</li>
+                <li><input type="checkbox" name="EE" onChange={(e) => send(e)} />Electrical engineering</li>
+                <li><input type="checkbox" name="AE" onChange={(e) => send(e)} /> Agriculture engineering</li>
+                <li><input type="checkbox" name="CSE" onChange={(e) => send(e)} /> Computer engineering</li>
+                <li><input type="checkbox" name="ECE" onChange={(e) => send(e)} /> Electronics engineering</li>
+                <li><input type="checkbox" name="IPE" onChange={(e) => send(e)} /> Industrial engineering</li>
               </ul>
             </div>
             <div className="filterTypes">
@@ -226,6 +260,12 @@ const search =HandleSearchBtn(research,searchName)
           </div>
         </div>
       </div>
+      {!loading ? <Pagination
+        rowperPage={rowperPage}
+        totalrows={totalrows}
+        paginate={paginate}
+        data={research}
+      /> : ""}
     </div>
   );
 };
