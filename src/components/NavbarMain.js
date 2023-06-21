@@ -29,7 +29,7 @@ const NavbarMain = () => {
         <div className={styles.navbar}>
           <div className={styles.logo}>
             <img className={styles.navbarImg} src={gbpu} alt="GBPUAT" />
-            <Link to={"/"}>
+            <Link to={`/`}>
               Govind Ballabh Pant University of Agriculture and Technology
             </Link>
           </div>
